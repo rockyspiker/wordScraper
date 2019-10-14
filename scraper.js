@@ -18,6 +18,9 @@ async function scrape() {
     console.log(talkText)
 
     await browser.close();
+
+    fs.writeFileSync('mcupws.json', JSON.stringify([...talkText]))
+
 }
 
 scrape()
