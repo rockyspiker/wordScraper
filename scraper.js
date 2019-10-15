@@ -12,7 +12,7 @@ async function scrape() {
     const page = await browser.newPage()
     console.log('Puppeteer Initialized')
 
-    for (let pageNum = 1; pageNum <= 100; pageNum++) {
+    for (let pageNum = 1; pageNum <= 100; pageNum++) { //Running through every page starting at first up to and including 100
         if (pageNum > 1)
             curURL = 'https://www.passwordrandom.com/most-popular-passwords/page/' + pageNum
         else
@@ -21,18 +21,18 @@ async function scrape() {
         await page.goto(curURL)
 
         const pagePasswords = await page.evaluate(() => {
-            const elements = [...document.querySelectorAll("#cntContent_lstMain tr:not(:first-child) td:nth-child(2)")]
-            return elements.map(element => element.textContent)
+            const elements = [...document.querySelectorAll("#cntContent_lstMain tr:not(:first-child) td:nth-child(2)")] //Only picks the second element of each row except for the first.
+            return elements.map(element => element.textContent) //Grabs the text content from the nodes
         })
 
         for (let pwd in pagePasswords)
-            allPasswords.push(pagePasswords[pwd])
+            allPasswords.push(pagePasswords[pwd]) //Pushes each password individually onto the allPasswords file
 
-            // console.log('Finished page ', pageNum)
+            // console.log('Finished page ', pageNum) //To count which page you are on
     }
     await browser.close();
 
-    fs.writeFileSync('mcupws.json', JSON.stringify([...allPasswords]))
+    fs.writeFileSync('mcupws.json', JSON.stringify([...allPasswords])) //Puts all of the passwords onto a json file
 
 }
 
