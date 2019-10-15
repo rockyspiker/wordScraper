@@ -28,7 +28,7 @@ async function scrape() {
         for (let pwd in pagePasswords)
             allPasswords.push(pagePasswords[pwd])
 
-            console.log('Finished page ', pageNum)
+            // console.log('Finished page ', pageNum)
     }
     await browser.close();
 
